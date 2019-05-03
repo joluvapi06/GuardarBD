@@ -1,0 +1,36 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<h1>Base de Datos</h1>
+
+
+
+<div class="container-fluid">
+    <div class="row">
+        <form action="~/Home/Guardar" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <input type="text" class="form-control" name="nombre" placeholder="Nombre" />
+                <input type="email" class="form-control" name="email" placeholder="Email" />
+                <input type="file" class="form-control" name="imagen" accept=".jpg,.png,.jpeg">
+                <button type="submit" class="btn btn-primary form-control">Submit</button>
+            </div>
+        </form>
+        <a href="/Home/Datos" class="btn btn-primary"><ins>Consultar Datos</ins></a>
+    </div>
+</div>
+
+<br />
+
+<div class="row">
+    <div class="container-fluid">
+        <a href="~/Home/DatosEmpleado" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Empleados</a>
+    </div>
+</div>
+
+<br />
+
+<div class="row">
+    <div class="container-fluid">
+        <a href="~/Home/Formulario" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Formulario</a>
+    </div>
+</div>

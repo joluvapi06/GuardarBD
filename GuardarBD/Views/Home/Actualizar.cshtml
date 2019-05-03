@@ -1,0 +1,35 @@
+﻿@using GuardarBD.Models;
+@model List<Empleado>
+
+@{
+    ViewBag.Title = "Actualizar";
+}
+
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-4">Actualizar</h1>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        @foreach (var i in Model)
+        {
+        <form action="#" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label class="form-control control-label disabled">@i.id_empleado</label>
+                <input type="text" class="form-control" name="nombre" placeholder="@i.nombre" />
+                <input type="text" class="form-control" name="pApellido" placeholder="@i.pApellido" />
+                <input type="text" class="form-control" name="sApellid" placeholder="@i.sApellid" />
+                <input type="text" class="form-control" name="genero" placeholder="@i.genero" />
+                <input type="tel" class="form-control" name="telefono" placeholder="@i.telefono" />
+                <input type="number" class="form-control" name="edad" placeholder="@i.edad" />
+                <input type="text" class="form-control" name="fecha_nacimiento" placeholder="@i.fecha_nacimiento" />
+                <input type="text" class="form-control" name="fecha_completa" placeholder="@i.fecha_completa" />
+                <button type="submit" class="btn btn-primary form-control">Actualizar</button>
+            </div>
+        </form>
+        }
+        <a href="~/Home/DatosEmpleado" class="btn btn-danger"><ins>Cancelar</ins></a>
+    </div>
+</div>

@@ -1,0 +1,34 @@
+﻿@using GuardarBD.Models;
+@model List<Empleados>
+@{
+    ViewBag.Title = "Datos";
+}
+
+<h2>Datos</h2>
+<br />
+<div class="container-fluid">
+    <div class="row table-responsive">
+        <table class="table table-responsive table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Image</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var i in Model)
+                {
+                    <tr>
+                        <td>@i.empleado_id</td>
+                        <td>@i.nombre</td>
+                        <td>@i.email</td>
+                        <td class="table-responsive">@i.imagen</td>
+                        <td><a href="~/Home/Email?email=@i.email" class="btn btn-success"><ins>Enviar</ins></a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,58 @@
+﻿@using GuardarBD.Models;
+@model List<Empleado>
+
+@{
+    ViewBag.Title = "ConsultarEmpleado";
+}
+
+<h2>Consultar</h2>
+
+<div class="row">
+    <div class="container-fluid">
+        <div class="container-fluid">
+            <div class="row table-responsive">
+                <table class="table table-responsive table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col">Id</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Primer Apellido</th>
+                            <th scope="col">Segundo Apellido</th>
+                            <th scope="col">Genero</th>
+                            <th scope="col">Telefono</th>
+                            <th scope="col">Edad</th>
+                            <th scope="col">Fecha Nacimiento</th>
+                            <th scope="col">Fecha Completa</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var i in Model)
+                        {
+                            <tr>
+                                <td><a href="~/Home/BorrarEmpleado?id_empleado=@i.id_empleado" class="btn btn-warning"><ins>Borrar</ins></a></td>
+                                <td>@i.id_empleado</td>
+                                <td>@i.nombre</td>
+                                <td>@i.pApellido</td>
+                                <td>@i.sApellid</td>
+                                <td>@i.genero</td>
+                                <td>@i.telefono</td>
+                                <td>@i.edad</td>
+                                <td>@i.fecha_nacimiento</td>
+                                <td>@i.fecha_completa</td>
+                                <td><a href="#" class="btn btn-success"><ins>Actualizar</ins></a></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="container-fluid">
+        <a href="~/Home/DatosEmpleado" type="button" class="btn btn-danger btn-lg btn-block">Regresar</a>
+    </div>
+</div>
+

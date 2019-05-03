@@ -1,0 +1,33 @@
+﻿
+@{
+    ViewBag.Title = "InsertarEmpleado";
+}
+
+<h2>InsertarEmpleado</h2>
+
+<div class="container-fluid">
+    <div class="row">
+        <form action="~/Home/GuardarEmpleado" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <input type="text" class="form-control" name="nombre" placeholder="Nombre" />
+                <input type="text" class="form-control" name="pApellido" placeholder="Primer Apellido" />
+                <input type="text" class="form-control" name="sApellid" placeholder="Segundo Apellido" />                                
+                <div class="form-inline">
+                    <label class="form-control" for="inlineFormCustomSelectPref">Genero</label>
+                    <select class="form-control form-control-lg" id="genero" name="genero">
+                        <option selected>Choose...</option>
+                        <option value="I">Indistinto</option>
+                        <option value="M">Masculino</option>
+                        <option value="Femenino">Femenino</option>
+                    </select>
+                </div>                             
+                <input type="tel" class="form-control" name="telefono" placeholder="Telefono" />
+                <input type="number" class="form-control" name="edad" placeholder="Edad" />
+                <input type="date" class="form-control" name="fecha_nacimiento" placeholder="Fecha Nacimiento" />
+                <input type="date" class="form-control" name="fecha_completa" placeholder="Fecha Completa" />
+                <button type="submit" class="btn btn-primary form-control">Guardar</button>
+            </div>
+        </form>
+        <a href="~/Home/DatosEmpleado" class="btn btn-danger"><ins>Cancelar</ins></a>
+    </div>
+</div>

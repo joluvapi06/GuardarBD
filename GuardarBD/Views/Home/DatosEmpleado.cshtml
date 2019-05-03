@@ -1,0 +1,109 @@
+﻿@using GuardarBD.Models;
+@model List<Empleado>
+
+@{
+    ViewBag.Title = "DatosEmpleado";
+}
+
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-4">Index Empleados</h1>            
+        </div>
+    </div>
+
+<div class="row">
+    <div class=" container-fluid">
+        <div class="col-lg-6">
+            <a href="~/Home/InsertarEmpleado" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Insertar</a>
+        </div>
+        <div class="col-lg-6">
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#exampleModalCenter">
+                Consultar
+            </button>
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalCenterTitle">Parametros de Consulta</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <h5 class="modal-body">Busqueda por ID</h5>
+                            <form action="~/Home/ConsultarEmpleadoId" method="post" enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <input type="number" class="form-control" name="id_empleado" placeholder="Id Empleado" />
+                                    <button type="submit" class="btn btn-primary form-control">Consultar</button>
+                                </div>
+                            </form>
+                            <hr>
+                            <h5>Busqueda avanzada</h5>
+                            <form action="~/Home/ConsultarEmpleado" method="post" enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="nombre" placeholder="Nombre Empleado" />
+                                    <input type="text" class="form-control" name="pApellido" placeholder="Primer Apellido" />
+                                    <input type="text" class="form-control" name="sApellid" placeholder="Segundo Apellido" />
+                                    <button type="submit" class="btn btn-primary form-control">Consultar</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            <a href="~/Home/ConsultarEmpleado" type="button" class="btn btn-primary disabled" aria-disabled="true">Consultar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+<br />
+
+<div class="row">
+    <div class="container-fluid">        
+        <div class="container-fluid">
+            <div class="row table-responsive">
+                <table class="table table-responsive table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col">Id</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Primer Apellido</th>
+                            <th scope="col">Segundo Apellido</th>
+                            <th scope="col">Genero</th>
+                            <th scope="col">Telefono</th>
+                            <th scope="col">Edad</th>
+                            <th scope="col">Fecha Nacimiento</th>
+                            <th scope="col">Fecha Completa</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var i in Model)
+                        {
+                        <tr>
+                            <td><a href="~/Home/BorrarEmpleado?id_empleado=@i.id_empleado" class="btn btn-warning"><ins>Borrar</ins></a></td>
+                            <td>@i.id_empleado</td>
+                            <td>@i.nombre</td>
+                            <td>@i.pApellido</td>
+                            <td>@i.sApellid</td>
+                            <td>@i.genero</td>
+                            <td>@i.telefono</td>
+                            <td>@i.edad</td>
+                            <td>@i.fecha_nacimiento</td>
+                            <td>@i.fecha_completa</td>
+                            <td><a href="~/Home/Actualizar?id_empleado=@i.id_empleado" class="btn btn-success"><ins>Actualizar</ins></a></td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
