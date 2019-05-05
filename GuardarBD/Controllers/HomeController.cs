@@ -40,7 +40,7 @@ namespace GuardarBD.Controllers
             imgBase64 = "data:" + imagen.ContentType + ";base64," + Convert.ToBase64String(imgBytes);
 
             //[Conexion a la Base de Datos]
-            SqlConnection con = new SqlConnection(@"Data Source=KABEC-PC\SQLEXPRESS; Initial Catalog=SolucionesKabec; User ID=sa; Password=qwerty123");
+            SqlConnection con = new SqlConnection(@"Data Source=PC-JOSE\DBCURSO; Initial Catalog=CursoDB; User ID=sa; Password=qwerty456");
             SqlCommand cmd = new SqlCommand(@"INSERT INTO [Empleados] (Nombre,Email,Imagen) VALUES (@nombre,@email,@imagen)", con);
             cmd.Parameters.Add(new SqlParameter("nombre", nombre));
             cmd.Parameters.Add(new SqlParameter("email", email));
@@ -49,7 +49,8 @@ namespace GuardarBD.Controllers
             {
                 con.Open();
                 cmd.ExecuteNonQuery();
-                return Content("Guardado !exito!");
+                //return Content("Guardado !exito!");
+                return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
@@ -66,7 +67,7 @@ namespace GuardarBD.Controllers
             //[Almacenar la consulta SELECT en la List]
             List<Empleados> modelo = new List<Empleados>();
 
-            SqlConnection con = new SqlConnection(@"Data Source=KABEC-PC\SQLEXPRESS; Initial Catalog=SolucionesKabec; User ID=sa; Password=qwerty123");
+            SqlConnection con = new SqlConnection(@"Data Source=PC-JOSE\DBCURSO; Initial Catalog=CursoDB; User ID=sa; Password=qwerty456");
             SqlCommand cmd = new SqlCommand(@"SELECT * FROM [Empleados];", con);
             try
             {
@@ -133,8 +134,8 @@ namespace GuardarBD.Controllers
                                             DateTime fecha_nacimiento, DateTime fecha_completa)
         {
             //[Accion que guarda los datos del Empleado con la accion del Boton Guardar o Insertar]
-            //[Conexion a la Base de Datos]
-            SqlConnection con = new SqlConnection(@"Data Source=KABEC-PC\SQLEXPRESS; Initial Catalog=SolucionesKabec; User ID=sa; Password=qwerty123");
+            //[Conexion a la Base de Datos]            
+            SqlConnection con = new SqlConnection(@"Data Source=PC-JOSE\DBCURSO; Initial Catalog=CursoDB; User ID=sa; Password=qwerty456");
             SqlCommand cmd = new SqlCommand(@"INSERT INTO [Empleado] (nombre,pApellido,sApellid,genero,telefono,edad,fecha_nacimiento,fecha_completa) 
                                                 VALUES (@nombre,@pApellido,@sApellid,@genero,@telefono,@edad,@fecha_nacimiento,@fecha_completa)", con);
             cmd.Parameters.Add(new SqlParameter("nombre", nombre));
@@ -149,7 +150,8 @@ namespace GuardarBD.Controllers
             {
                 con.Open();
                 cmd.ExecuteNonQuery();
-                return Content("Empleado Guardado !exito!");
+                //return Content("Empleado Guardado !exito!");
+                return RedirectToAction("DatosEmpleado");
             }
             catch (Exception ex)
             {
@@ -165,8 +167,8 @@ namespace GuardarBD.Controllers
             //[Almacenar la consulta SELECT en la List]
             List<Empleado> modelo = new List<Empleado>();
 
-            SqlConnection con = new SqlConnection(@"Data Source=KABEC-PC\SQLEXPRESS; Initial Catalog=SolucionesKabec; User ID=sa; Password=qwerty123");
-            SqlCommand cmd = new SqlCommand(@"SELECT * FROM [Empleado];", con);
+            SqlConnection con = new SqlConnection(@"Data Source=PC-JOSE\DBCURSO; Initial Catalog=CursoDB; User ID=sa; Password=qwerty456");
+            SqlCommand cmd = new SqlCommand(@"SELECT TOP 10 * FROM [Empleado] ORDER BY id_empleado DESC;", con);
             try
             {
                 con.Open();
@@ -202,7 +204,7 @@ namespace GuardarBD.Controllers
         public ActionResult ConsultarEmpleadoId(Int32 id_empleado)
         {
             List<Empleado> modelo = new List<Empleado>();
-            SqlConnection con = new SqlConnection(@"Data Source=KABEC-PC\SQLEXPRESS; Initial Catalog=SolucionesKabec; User ID=sa; Password=qwerty123");
+            SqlConnection con = new SqlConnection(@"Data Source=PC-JOSE\DBCURSO; Initial Catalog=CursoDB; User ID=sa; Password=qwerty456");
             SqlCommand cmd = new SqlCommand(@"SELECT * FROM [Empleado] WHERE id_empleado=@id_empleado;", con);
             cmd.Parameters.Add(new SqlParameter("id_empleado", id_empleado));
             try
@@ -240,7 +242,7 @@ namespace GuardarBD.Controllers
         public ActionResult ConsultarEmpleado(String nombre, String pApellido, String sApellid)
         {
             List<Empleado> modelo = new List<Empleado>();
-            SqlConnection con = new SqlConnection(@"Data Source=KABEC-PC\SQLEXPRESS; Initial Catalog=SolucionesKabec; User ID=sa; Password=qwerty123");
+            SqlConnection con = new SqlConnection(@"Data Source=PC-JOSE\DBCURSO; Initial Catalog=CursoDB; User ID=sa; Password=qwerty456");
             SqlCommand cmd = new SqlCommand(@"SELECT * FROM [Empleado] WHERE nombre=@nombre OR pApellido=@pApellido OR sApellid=@sApellid;", con);
             cmd.Parameters.Add(new SqlParameter("nombre", nombre));
             cmd.Parameters.Add(new SqlParameter("pApellido", pApellido));
@@ -279,14 +281,14 @@ namespace GuardarBD.Controllers
         }
         public ActionResult BorrarEmpleado(Int32 id_empleado)
         {
-            SqlConnection con = new SqlConnection(@"Data Source=KABEC-PC\SQLEXPRESS; Initial Catalog=SolucionesKabec; User ID=sa; Password=qwerty123");
+            SqlConnection con = new SqlConnection(@"Data Source=PC-JOSE\DBCURSO; Initial Catalog=CursoDB; User ID=sa; Password=qwerty456");
             SqlCommand cmd = new SqlCommand(@"DELETE FROM [Empleado] WHERE id_empleado= @id_empleado;", con);
             cmd.Parameters.Add(new SqlParameter("id_empleado", id_empleado));
             try
             {
                 con.Open();
                 cmd.ExecuteNonQuery();
-                return Content("Empleado Eliminado !exito!");
+                return RedirectToAction("DatosEmpleado");
             }
             catch (Exception ex)
             {
@@ -301,7 +303,7 @@ namespace GuardarBD.Controllers
         {
             //[Vista donde se encuentra el formulario para actualizar]
             List<Empleado> modelo = new List<Empleado>();
-            SqlConnection con = new SqlConnection(@"Data Source=KABEC-PC\SQLEXPRESS; Initial Catalog=SolucionesKabec; User ID=sa; Password=qwerty123");
+            SqlConnection con = new SqlConnection(@"Data Source=PC-JOSE\DBCURSO; Initial Catalog=CursoDB; User ID=sa; Password=qwerty456");
             SqlCommand cmd = new SqlCommand(@"SELECT * FROM [Empleado] WHERE id_empleado=@id_empleado;", con);
             cmd.Parameters.Add(new SqlParameter("id_empleado", id_empleado));
             try
@@ -338,7 +340,7 @@ namespace GuardarBD.Controllers
         }
         public ActionResult ActualizarEmpleado(Int32 id_empleado, String nombre, String pApellido, String sApellid, String telefono, Int32 edad)
         {
-            SqlConnection con = new SqlConnection(@"Data Source=KABEC-PC\SQLEXPRESS; Initial Catalog=SolucionesKabec; User ID=sa; Password=qwerty123");
+            SqlConnection con = new SqlConnection(@"Data Source=PC-JOSE\DBCURSO; Initial Catalog=CursoDB; User ID=sa; Password=qwerty456");
             SqlCommand cmd = new SqlCommand(@"UPDATE [Empleado] SET nombre=@nombre, pApellido=@pApellido, sApellid=@sApellid, telefono=@telefono, 
                                             edad=@edad WHERE id_empleado=@id_empleado;", con);
             cmd.Parameters.Add(new SqlParameter("id_empleado", id_empleado));
@@ -351,7 +353,7 @@ namespace GuardarBD.Controllers
             {
                 con.Open();
                 cmd.ExecuteNonQuery();
-                return Content("Empleado Actualizado !exito!");
+                return RedirectToAction("DatosEmpleado");
             }
             catch (Exception ex)
             {
