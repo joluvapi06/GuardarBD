@@ -12,8 +12,10 @@ namespace GuardarBD.Controllers
 {
     public class HomeController : Controller
     {
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         public ActionResult Index()
         {
+            log.Info("Ingresaste al index de la aplicaccion");
             return View();
         }
 
@@ -31,7 +33,7 @@ namespace GuardarBD.Controllers
             return View();
         }
         public ActionResult Guardar(String nombre, String email, HttpPostedFileBase imagen)
-        {
+        {            
             //[Convertir imagen en Base64]
             string imgBase64 = string.Empty;            
             BinaryReader dr = new System.IO.BinaryReader(imagen.InputStream);
@@ -127,12 +129,14 @@ namespace GuardarBD.Controllers
         }
         public ActionResult InsertarEmpleado()
         {
+            log.Info("Ingresaste a InsertarEmpleado");
             //Vista donde esta el formulario donde se almacena el empleado
             return View();
         }
         public ActionResult GuardarEmpleado(String nombre, String pApellido, String sApellid, String genero, String telefono, Int32 edad,
                                             DateTime fecha_nacimiento, DateTime fecha_completa)
         {
+            log.Info("Insertaste un empleado con Nombre:" + nombre);
             //[Accion que guarda los datos del Empleado con la accion del Boton Guardar o Insertar]
             //[Conexion a la Base de Datos]            
             SqlConnection con = new SqlConnection(@"Data Source=PC-JOSE\DBCURSO; Initial Catalog=CursoDB; User ID=sa; Password=qwerty456");
@@ -168,7 +172,9 @@ namespace GuardarBD.Controllers
             List<Empleado> modelo = new List<Empleado>();
 
             SqlConnection con = new SqlConnection(@"Data Source=PC-JOSE\DBCURSO; Initial Catalog=CursoDB; User ID=sa; Password=qwerty456");
-            SqlCommand cmd = new SqlCommand(@"SELECT TOP 10 * FROM [Empleado] ORDER BY id_empleado DESC;", con);
+            SqlCommand cmd = new SqlCommand(@"SELECT TOP 10 id_empleado, dbo.CleanString((DBO.UpperString(nombre))), 
+                            dbo.CleanString((DBO.UpperString(pApellido))), dbo.CleanString((DBO.UpperString(sApellid))), 
+			genero, telefono, edad, fecha_nacimiento, fecha_completa FROM [Empleado] ORDER BY id_empleado DESC;", con);
             try
             {
                 con.Open();
@@ -203,9 +209,13 @@ namespace GuardarBD.Controllers
         }
         public ActionResult ConsultarEmpleadoId(Int32 id_empleado)
         {
+            log.Info("Hisiste una consulta a la BD con el ID_Empleado:" + id_empleado);
             List<Empleado> modelo = new List<Empleado>();
             SqlConnection con = new SqlConnection(@"Data Source=PC-JOSE\DBCURSO; Initial Catalog=CursoDB; User ID=sa; Password=qwerty456");
-            SqlCommand cmd = new SqlCommand(@"SELECT * FROM [Empleado] WHERE id_empleado=@id_empleado;", con);
+            SqlCommand cmd = new SqlCommand(@"SELECT id_empleado, dbo.CleanString((DBO.UpperString(nombre))), 
+                                             dbo.CleanString((DBO.UpperString(pApellido))), dbo.CleanString((DBO.UpperString(sApellid))), 
+			                                genero, telefono, edad, fecha_nacimiento, fecha_completa 
+                                            FROM [Empleado] WHERE id_empleado=@id_empleado;", con);
             cmd.Parameters.Add(new SqlParameter("id_empleado", id_empleado));
             try
             {
@@ -241,9 +251,14 @@ namespace GuardarBD.Controllers
         }
         public ActionResult ConsultarEmpleado(String nombre, String pApellido, String sApellid)
         {
+            log.Info("Busqueda con los parametos Nombre:"+nombre+" PApellido:"+pApellido+" SApellido:"+sApellid);
+            log.Info("Nombre:"+nombre.Length);
+            log.Info("PApellido:"+pApellido.Length);
+            log.Info("SApellido:"+sApellid.Length);
             List<Empleado> modelo = new List<Empleado>();
             SqlConnection con = new SqlConnection(@"Data Source=PC-JOSE\DBCURSO; Initial Catalog=CursoDB; User ID=sa; Password=qwerty456");
-            SqlCommand cmd = new SqlCommand(@"SELECT * FROM [Empleado] WHERE nombre=@nombre OR pApellido=@pApellido OR sApellid=@sApellid;", con);
+            string SQL = "SELECT id_empleado, dbo.CleanString((DBO.UpperString(nombre))), dbo.CleanString((DBO.UpperString(pApellido))), dbo.CleanString((DBO.UpperString(sApellid))), genero, telefono, edad, fecha_nacimiento, fecha_completa FROM DBO.EMPLEADO WHERE nombre LIKE '%"+nombre+"%' AND pApellido LIKE '%"+pApellido+"%' AND sApellid LIKE '%"+sApellid+"%';";
+            SqlCommand cmd = new SqlCommand(SQL, con);
             cmd.Parameters.Add(new SqlParameter("nombre", nombre));
             cmd.Parameters.Add(new SqlParameter("pApellido", pApellido));
             cmd.Parameters.Add(new SqlParameter("sApellid", sApellid));
@@ -280,10 +295,11 @@ namespace GuardarBD.Controllers
             }
         }
         public ActionResult BorrarEmpleado(Int32 id_empleado)
-        {
+        {            
             SqlConnection con = new SqlConnection(@"Data Source=PC-JOSE\DBCURSO; Initial Catalog=CursoDB; User ID=sa; Password=qwerty456");
             SqlCommand cmd = new SqlCommand(@"DELETE FROM [Empleado] WHERE id_empleado= @id_empleado;", con);
             cmd.Parameters.Add(new SqlParameter("id_empleado", id_empleado));
+            log.Info("Borraste un Empleado con ID:"+id_empleado);
             try
             {
                 con.Open();
@@ -306,6 +322,7 @@ namespace GuardarBD.Controllers
             SqlConnection con = new SqlConnection(@"Data Source=PC-JOSE\DBCURSO; Initial Catalog=CursoDB; User ID=sa; Password=qwerty456");
             SqlCommand cmd = new SqlCommand(@"SELECT * FROM [Empleado] WHERE id_empleado=@id_empleado;", con);
             cmd.Parameters.Add(new SqlParameter("id_empleado", id_empleado));
+            log.Info("Busqueda del Empleado con Id:"+id_empleado+" para actualizarlo");
             try
             {
                 con.Open();
@@ -339,7 +356,7 @@ namespace GuardarBD.Controllers
             }
         }
         public ActionResult ActualizarEmpleado(Int32 id_empleado, String nombre, String pApellido, String sApellid, String telefono, Int32 edad)
-        {
+        {            
             SqlConnection con = new SqlConnection(@"Data Source=PC-JOSE\DBCURSO; Initial Catalog=CursoDB; User ID=sa; Password=qwerty456");
             SqlCommand cmd = new SqlCommand(@"UPDATE [Empleado] SET nombre=@nombre, pApellido=@pApellido, sApellid=@sApellid, telefono=@telefono, 
                                             edad=@edad WHERE id_empleado=@id_empleado;", con);
@@ -348,7 +365,17 @@ namespace GuardarBD.Controllers
             cmd.Parameters.Add(new SqlParameter("pApellido", pApellido));
             cmd.Parameters.Add(new SqlParameter("sApellid", sApellid));            
             cmd.Parameters.Add(new SqlParameter("telefono", telefono));
-            cmd.Parameters.Add(new SqlParameter("edad", edad));            
+            cmd.Parameters.Add(new SqlParameter("edad", edad));
+            log.Info("ID:"+id_empleado);
+            log.Info("Nombre:"+nombre);
+            log.Info("Nombre:" + nombre.Length);
+            log.Info("PApellido:"+pApellido);
+            log.Info("PApellido:" + pApellido.Length);
+            log.Info("SApellido:"+sApellid);
+            log.Info("SApellido:" + sApellid.Length);
+            log.Info("Tel:"+telefono);
+            log.Info("Tel:" + telefono.Length);
+            log.Info("Edad:"+edad);            
             try
             {
                 con.Open();
