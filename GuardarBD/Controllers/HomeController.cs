@@ -257,11 +257,12 @@ namespace GuardarBD.Controllers
             log.Info("SApellido:"+sApellid.Length);
             List<Empleado> modelo = new List<Empleado>();
             SqlConnection con = new SqlConnection(@"Data Source=KABEC-PC\SQLEXPRESS; Initial Catalog=SolucionesKabec; User ID=sa; Password=qwerty123");
-            string SQL = "SELECT id_empleado, dbo.CleanString((DBO.UpperString(nombre))), dbo.CleanString((DBO.UpperString(pApellido))), dbo.CleanString((DBO.UpperString(sApellid))), genero, telefono, edad, fecha_nacimiento, fecha_completa FROM DBO.EMPLEADO WHERE nombre LIKE '%"+nombre+"%' AND pApellido LIKE '%"+pApellido+"%' AND sApellid LIKE '%"+sApellid+"%';";
+            string SQL = "SELECT id_empleado, dbo.CleanString((DBO.UpperString(nombre))), dbo.CleanString((DBO.UpperString(pApellido))), dbo.CleanString((DBO.UpperString(sApellid))), genero, telefono, edad, fecha_nacimiento, fecha_completa FROM DBO.EMPLEADO WHERE nombre LIKE '%"+nombre+"%' AND pApellido LIKE '%"+pApellido+"%' AND sApellid LIKE '%"+sApellid+"%';";                                                                                                                                                                                                                                                        
             SqlCommand cmd = new SqlCommand(SQL, con);
             cmd.Parameters.Add(new SqlParameter("nombre", nombre));
             cmd.Parameters.Add(new SqlParameter("pApellido", pApellido));
             cmd.Parameters.Add(new SqlParameter("sApellid", sApellid));
+            log.Error("Consulta:"+SQL);
             try
             {
                 con.Open();

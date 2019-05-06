@@ -10,6 +10,11 @@
             <h1 class="display-4">Index Empleados</h1>            
         </div>
     </div>
+    
+    <div class="alert alert-danger">
+        <button class="close" data-dismiss="alert"><span>&times;</span></button>
+        Bienvenido!
+    </div>
 
 <div class="row">
     <div class=" container-fluid">
@@ -88,7 +93,7 @@
                         @foreach (var i in Model)
                         {
                         <tr>
-                            <td><a href="~/Home/BorrarEmpleado?id_empleado=@i.id_empleado" class="btn btn-warning"><ins>Borrar</ins></a></td>
+                            <td><a href="~/Home/BorrarEmpleado?id_empleado=@i.id_empleado" class="btn btn-danger"><ins>Borrar</ins></a></td>
                             <td>@i.id_empleado</td>
                             <td>@i.nombre</td>
                             <td>@i.pApellido</td>
@@ -98,7 +103,7 @@
                             <td>@i.edad</td>
                             <td>@i.fecha_nacimiento</td>
                             <td>@i.fecha_completa</td>
-                            <td><a href="~/Home/Actualizar?id_empleado=@i.id_empleado" class="btn btn-success"><ins>Actualizar</ins></a></td>
+                            <td><a href="~/Home/Actualizar?id_empleado=@i.id_empleado" class="btn btn-warning"><ins>Actualizar</ins></a></td>
                         </tr>
                         }
                     </tbody>

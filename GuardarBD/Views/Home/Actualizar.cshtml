@@ -18,13 +18,13 @@
         <form action="~/Home/ActualizarEmpleado?id_empleado=@i.id_empleado" method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <label class="form-control control-label disabled" name="id_empleado">@i.id_empleado</label>
-                <input type="text" class="form-control" name="nombre" placeholder="@i.nombre" />
-                <input type="text" class="form-control" name="pApellido" placeholder="@i.pApellido" />
-                <input type="text" class="form-control" name="sApellid" placeholder="@i.sApellid" />
+                <input type="text" class="form-control" name="nombre" value="@i.nombre" />
+                <input type="text" class="form-control" name="pApellido" value="@i.pApellido" placeholder="@i.pApellido" />
+                <input type="text" class="form-control" name="sApellid" value="@i.sApellid" />
                 <label class="form-control control-label disabled" name="genero">@i.genero</label>
-                <input type="tel" class="form-control" name="telefono" placeholder="@i.telefono" />
-                <input type="number" class="form-control" name="edad" placeholder="@i.edad" />
-                <label class="form-control control-label disabled">@i.fecha_nacimiento</label>
+                <input type="tel" class="form-control" name="telefono" value="@i.telefono" />
+                <input type="number" class="form-control" name="edad" value="@i.edad" />
+                <input type="datetime" class="form-control" name="fecha_nacimiento" value="@i.fecha_nacimiento" />
                 <label class="form-control control-label disabled">@i.fecha_completa</label>                
                 <button type="submit" class="btn btn-primary form-control">Actualizar</button>
             </div>
